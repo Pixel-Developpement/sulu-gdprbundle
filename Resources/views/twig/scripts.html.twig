@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="{{ asset('bundles/gdpr/css/tarteaucitron.css') }}" type="text/css" />
+<script src="{{ asset('bundles/gdpr/tarteaucitron.js') }}"></script>
+<script src="{{ asset('bundles/gdpr/tarteaucitron.services.js') }}"></script>
+
+{% if setting.googleTagManager %}
+    <script type="text/javascript">
+        tarteaucitron.user.googletagmanagerId = '{{ setting.googleTagManager }}';
+        (tarteaucitron.job = tarteaucitron.job || []).push('googletagmanager');
+    </script>
+{% endif %}
+
+{% if setting.googleAnalyticsGaJs %}
+    <script type="text/javascript">
+        tarteaucitron.user.gajsUa = '{{ setting.googleAnalyticsGaJs }}';
+        tarteaucitron.user.gajsMore = function () { /* add here your optionnal _ga.push() */ };
+        (tarteaucitron.job = tarteaucitron.job || []).push('gajs');
+    </script>
+{% endif %}
+
+{% if setting.googleAnalyticsGtagJs %}
+    <script type="text/javascript">
+        tarteaucitron.user.gtagUa = '{{ setting.googleAnalyticsGtagJs }}';
+        // tarteaucitron.user.gtagCrossdomain = ['example.com', 'example2.com'];
+        tarteaucitron.user.gtagMore = function () { /* add here your optionnal gtag() */ };
+        (tarteaucitron.job = tarteaucitron.job || []).push('gtag');
+    </script>
+{% endif %}
+
+{% if setting.googleAnalyticsUniversal %}
+    <script type="text/javascript">
+        tarteaucitron.user.analyticsUa = '{{ setting.googleAnalyticsUniversal }}';
+        tarteaucitron.user.analyticsMore = function () { /* optionnal ga.push() */ };
+        tarteaucitron.user.analyticsUaCreate = { /* optionnal create configuration */ };
+        tarteaucitron.user.analyticsAnonymizeIp = true;
+        tarteaucitron.user.analyticsPageView = { /* optionnal pageview configuration */ };
+        tarteaucitron.user.analyticsMore = function () { /* optionnal ga.push() */ };
+        (tarteaucitron.job = tarteaucitron.job || []).push('analytics');
+    </script>
+{% endif %}
+
+{% if setting.pixelFacebook %}
+    <script type="text/javascript">
+        tarteaucitron.user.facebookpixelId = '{{ setting.pixelFacebook }}'; tarteaucitron.user.facebookpixelMore = function () { /* add here your optionnal facebook pixel function */ };
+        (tarteaucitron.job = tarteaucitron.job || []).push('facebookpixel');
+    </script>
+{% endif %}
+
+<script>
+    tarteaucitron.init({
+        "privacyUrl": "{{ setting.privacyUrl }}", /* Privacy policy url */
+        "bodyPosition": "{{ setting.bodyPosition }}", /* or top to bring it as first element for accessibility */
+
+        "hashtag": "{{ setting.hashtag }}", /* Open the panel with this hashtag */
+        "cookieName": "{{ setting.cookieName }}", /* Cookie name */
+
+        "orientation": "{{ setting.orientation }}", /* Banner position (top - bottom - middle - popup) */
+
+        "groupServices": {{ setting.groupServices ? 'true' : 'false' }}, /* Group services by category */
+
+        "showAlertSmall": {{ setting.showAlertSmall ? 'true' : 'false' }}, /* Show the small banner on bottom right */
+        "cookieslist": {{ setting.cookielist ? 'true' : 'false' }}, /* Show the cookie list */
+
+        "showIcon": {{ setting.showIcon ? 'true' : 'false' }}, /* Show cookie icon to manage cookies */
+        // "iconSrc": "", /* Optionnal: URL or base64 encoded image */
+        "iconPosition": "{{ setting.iconPosition }}", /* Position of the icon between BottomRight, BottomLeft, TopRight and TopLeft */
+
+        "adblocker": {{ setting.adblocker ? 'true' : 'false' }}, /* Show a Warning if an adblocker is detected */
+
+        "DenyAllCta" : {{ setting.denyAllCta ? 'true' : 'false' }}, /* Show the deny all button */
+        "AcceptAllCta" : {{ setting.acceptAllCta ? 'true' : 'false' }}, /* Show the accept all button when highPrivacy on */
+        "highPrivacy": {{ setting.highPrivacy ? 'true' : 'false' }}, /* HIGHLY RECOMMANDED Disable auto consent */
+
+        "handleBrowserDNTRequest": {{ setting.handleBrowserDNTRequest ? 'true' : 'false' }}, /* If Do Not Track == 1, disallow all */
+
+        "removeCredit": {{ setting.removeCredit ? 'true' : 'false' }}, /* Remove credit link */
+        "moreInfoLink": {{ setting.moreInfoLink ? 'true' : 'false' }}, /* Show more info link */
+        "useExternalCss": {{ setting.useExternalCss ? 'true' : 'false' }}, /* If false, the tarteaucitron.css file will be loaded */
+        "useExternalJs": {{ setting.useExternalJs ? 'true' : 'false' }}, /* If false, the tarteaucitron.services.js file will be loaded */
+
+        //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for subdomain website */
+
+        "readmoreLink": "{{ setting.readmoreLink }}", /* Change the default readmore link pointing to tarteaucitron.io */
+
+        "mandatory": {{ setting.mandatory ? 'true' : 'false' }}, /* Show a message about mandatory cookies */
+        "mandatoryCta": {{ setting.mandatoryCta ? 'true' : 'false' }} /* Show the disabled accept button when mandatory on */
+    });
+</script>
